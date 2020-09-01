@@ -25,12 +25,12 @@ class LinkedListIterator():
     return self
 
   def __next__(self):
-    if self.current.next == None:
+    if self.current == None:
       raise StopIteration
     else:
       tmp = self.current
       self.current = self.current.next
-      return self.current
+      return tmp
 
 
 def pad_to_equal_length(target_length, l):

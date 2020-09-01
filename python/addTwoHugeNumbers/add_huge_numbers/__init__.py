@@ -1,9 +1,10 @@
 from helper import counter
-from linked_list import LinkedList, pad_to_equal_length, map_list, length, ListNode, print_list, shift_list, create_linked_list_callback, LinkedListIterator
+from linked_list import print_list, LinkedList, pad_to_equal_length, map_list, length, ListNode, shift_list, create_linked_list_callback, LinkedListIterator
 
 def add_digit_by_digit(a, b):
   carry = 0
   result = ''
+  print("a", a, "b", b)
   for x, y in reversed(list(zip(a, b))):
     subtotal = int(x) + int(y) + carry
     carry = 0
@@ -40,11 +41,18 @@ def pad_list_node(n):
 
 slice_for_linked_list = lambda l: [l[i: i + 4] for i in range(0, len(l), 4)]
 
+def prepare_value(n): 
+  n.value = str(n.value)
+  pad_list_node(n)
+  return n.value
+
+preapare_and_add = lambda n, n2: add_digit_by_digit(prepare_value(n), prepare_value(n2))
+
 def add_huge_numbers(ll, ll2):
   ll, ll2 = equalize_lengths(ll, ll2)
-  map_list(pad_list_node, ll)
-  map_list(pad_list_node, ll2)
-  result = [add_digit_by_digit(n.value, n2.value) for n, n2 in zip(LinkedListIterator(ll), LinkedListIterator(ll2))]
-  chunks = [''.join(l) for l in slice_for_linked_list(list(''.join(result)))]
+  zipped_lls = zip(LinkedListIterator(ll), LinkedListIterator(ll2))
+  result = [preapare_and_add(n, n2) for n, n2 in zipped_lls]
+  print("result", result)
+  lists_of_4 = slice_for_linked_list(list(''.join(result)))
+  chunks = [int(''.join(l)) for l in lists_of_4]
   return LinkedList.fromList(chunks)
-

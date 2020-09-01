@@ -1,5 +1,5 @@
 import unittest
-from linked_list import traverse_list, ListNode
+from linked_list import map_list, ListNode
 from helper import counter, counted
 
 class TestListTraverse(unittest.TestCase):
@@ -7,6 +7,6 @@ class TestListTraverse(unittest.TestCase):
     [get_count, count] = counter()
     count = counted(count)
     l = ListNode("190")
-    traverse_list(count, l)
+    map_list(count, l)
     self.assertEqual(count.calls, 1)
 
